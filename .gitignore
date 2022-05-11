@@ -1,0 +1,9 @@
+/text.txt
+
+#Esto es un comentario
+auto/* 
+#ignoro todos los arhivos
+#tambien puedo decir
+auto/*.txt
+
+
