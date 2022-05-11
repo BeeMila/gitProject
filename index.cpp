@@ -7,5 +7,7 @@ int main(){
     printf("a");
     printf("%i", a-1);
     
+    int r = 700;
+    printf("%d", ++r);
     
 }
