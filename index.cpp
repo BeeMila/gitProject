@@ -9,5 +9,8 @@ int main(){
     
     int r = 700;
     printf("%d", ++r);
+
+    int f;
     
 }
+ 
