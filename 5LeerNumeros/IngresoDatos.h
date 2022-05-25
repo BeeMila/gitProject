@@ -17,6 +17,8 @@ class IngresoDatos{
         //metodo pincipal
         char* leerDatos(string);
         void funcionPrincipal(string);
+        void unicoPunto(int*, int*, string, char*);
+        void backspace(int*, int*, char*, string);
 };
 
 #endif  
