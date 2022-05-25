@@ -51,17 +51,27 @@ char* IngresoDatos::leerDatos(string mensaje){
                     for(int p = 0; p < i; p++){
                         printf("%c", dato[p]);
                     }
-                    i--;
+                    i--; //Para no avanzar en el contador e imprimir basura
                 }
             }else{ //Si el dato no es un punto
                 printf("%c", c);
 			    dato[i]=c;
             }
         }else if(c == 8){ //Si el input es un back space
-			printf("%c", c);
+			system("CLS");
+            cout<< i <<endl;
+            imprimirMensaje(mensaje);
+            for(int p = 0; p < i-1; p++){
+                printf("%c", dato[p]);
+            }
+
 			if(i != 0){
-				dato[i]='\0';
-				i--;
+                if(dato[i-1] == 46){
+                    conversion.setFlotante(0);
+                    j = 0;
+                }
+				dato[--i]='\0';
+                --i;
 			}
         }    			     
     }
