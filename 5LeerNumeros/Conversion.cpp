@@ -30,10 +30,22 @@ void Conversion::verificar(char c){
     }
 }
 
+bool Conversion::getNumero(){
+    return this -> numero;
+}
+
+ void Conversion::setFlotante(int i){
+    this -> flotante = i;
+ }
+
+ int Conversion::getFlotante(){
+    return this -> flotante;
+ }
+
 void Conversion::convertir(char* dato){
-    if(this-> numero){
-        cout << "\nSu numero es "<< numInt(dato) << " y es un entero" <<endl; //Imprimo entero
-    }else{
+    if(this-> flotante == 1){
         cout << "\nSu numero es "<< numFloat(dato) << " y es un flotante" <<endl; //Imprimo flotante
+    }else{
+        cout << "\nSu numero es "<< numInt(dato) << " y es un entero" <<endl; //Imprimo entero
     }
 }

@@ -15,15 +15,8 @@ class IngresoDatos{
         ~IngresoDatos();       //Destructor
 
         //metodo pincipal
-        void leerDatos(string);
-
-        //Sub metodos
-        char *agregoChars(char *dato);
-        bool unicoPunto(char c);
-
-        //Metodos de retorno
-        int devolverInt(char *dato);
-        float devolverFloat(char *dato);
+        char* leerDatos(string);
+        void funcionPrincipal(string);
 };
 
 #endif  
