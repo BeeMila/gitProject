@@ -204,7 +204,7 @@ class Vector {
          *  @param dato El valor buscado
          * 
          *  @return "posicionDato" si se encuentra, y sino,
-         *  "posicionInsercion - 1"
+         *  "-posicionInsercion - 1"
          */
         int buscarOrdenado(T dato) {
             int i = 0;

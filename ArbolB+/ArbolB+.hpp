@@ -114,7 +114,21 @@ class ArbolBmas{
 
         void getCamino(T dato, NodoBmas<T>* nodoActual, Camino<T> &camino){
             
+            Resultado resultado(nodoActual->buscadorNodo(dato));
+            camino.agregarNodo(nodoActual);
+
+            int sigPos = (resultado.datoEncontrado() ? (resultado.getPosBusqueda() + (nodoActual->getEsHoja() ? 0 : 1)) : resultado.getPosInsercion());
             
+            camino.agregarIndice(sigPos);
+
+            if(nodoActual->getEsHoja()){
+
+                if(resultado.datoEncotrado())
+                    camino.marcarDatos();
+
+            }else{
+                getCamino(dato, nodoActual->getHijos()[sigPos], camino);
+            }
         }
 
     public:
@@ -128,5 +142,14 @@ class ArbolBmas{
 
     ~ArbolBmas(){}
 
+    
+    bool insertarEnOrden(T ingresar){
+
+        Camino<T> camino;
+        this->getCamino(dato, raiz, camino);
+
+        
+
+    }
 
 };

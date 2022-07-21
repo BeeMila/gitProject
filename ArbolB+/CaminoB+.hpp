@@ -94,4 +94,7 @@ class Camino{
         bool fin(){
             return nodos.estaVacio();
         }
+
+
+
 };

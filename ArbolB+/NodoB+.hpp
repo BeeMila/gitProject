@@ -1,4 +1,5 @@
 #include "Vector/Vector.hpp"
+#include "ResultadoB+.hpp"
 
 #include <iostream>
 using namespace std;
@@ -64,4 +65,18 @@ class NodoBmas{
         int cantidadHijos(){
             this->hijos.elementos();
         }
+
+        Resultado buscadorNodo(T v){
+            return Resultado(datos.buscarOrdenado(v))
+        }
+
+        Vector<T> &getDatos(){
+            return this->datos;
+        }
+
+        Vector<NodoBmas<T>*> &getHijos(){
+            return this->hijos;
+        }
+
+
 };
