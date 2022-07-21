@@ -109,6 +109,28 @@ class Vector {
 
         }
 
+        void insertar(const T &data, int indice){
+
+            if (elementos == capacidad){
+                auto tmp_arr = new T[capacidad * 2];
+                capacidad *= 2;
+
+                for (int i = 0; i < elementos; i++) {
+                    tmp_arr[i] = arrayInterno[i];
+                }
+
+                delete [] arrayInterno;
+                arrayInterno = tmp_arr;
+            }
+
+            for(int i = elementos-1; i >= indice; i--){
+                arrayInterno[i+1] = arrayInterno[i]; 
+            }
+
+            arrayInterno[indice] = data;
+            elementos++;
+        }
+
 
         /**
          * Elimina el último elemento de la lista.

@@ -66,6 +66,8 @@ class NodoBmas{
             this->hijos.elementos();
         }
 
+        //Retorna una instancia de resultado, que almacena un indice 
+        //util para poder encontrar el lugar en donde insertarlo
         Resultado buscadorNodo(T v){
             return Resultado(datos.buscarOrdenado(v))
         }
@@ -78,5 +80,16 @@ class NodoBmas{
             return this->hijos;
         }
 
+        int insertarOrdenado(T dato){
+            Resultado resultado(this->buscadorNodo(dato));
+            
+            if(resultado.datoEncotrado()){
+                throw std::out_of_range("Elemento repetido");
+            }
+
+            datos.insertar(dato, resultado.getPosInsercion());
+
+            return resultado.getPosInsercion();
+        }
 
 };

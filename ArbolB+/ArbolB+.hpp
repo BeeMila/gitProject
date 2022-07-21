@@ -8,6 +8,7 @@ template <typename T>
 class ArbolBmas{
     private:
         int orden;
+        int cantidadDatos{0};
         NodoBmas<T>* raiz;
         NodoBmas<T>* primeraHoja;
 
@@ -131,6 +132,15 @@ class ArbolBmas{
             }
         }
 
+        void insertarEnHoja(T dato, NodoBmas<T> * nodo, Camino<T>& camino){
+
+            if(!(alMaximo(nodo))){
+                nodo->insertarOrdenado(dato);
+                return;
+            }
+
+        }
+
     public:
     
     /**
@@ -146,10 +156,18 @@ class ArbolBmas{
     bool insertarEnOrden(T ingresar){
 
         Camino<T> camino;
-        this->getCamino(dato, raiz, camino);
+        this->getCamino(ingresar, raiz, camino);
 
-        
+        if(camino.getEncontreDato()){
+            return false;
+        }
+
+        this->insertarEnHoja(ingresar, camino.siguienteNodo(), camino);
+        cantidadDatos++;
+        return true;
 
     }
+
+    
 
 };
