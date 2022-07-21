@@ -17,7 +17,6 @@ public:
 	 * Crea una nueva pila con una longitud de 0.
 	 */
 	Pila(){
-		longitud{0};
 	}
 
 	~Pila(){

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "ColaPila/Pila.hpp"
+#include "../ColaPila/Pila.hpp"
 #include "NodoB+.hpp"
 using namespace std;
 #pragma once
@@ -29,6 +29,9 @@ class Camino{
          * @return El primer elemento de la pila.
          */
         NodoBmas<T>* siguienteNodo(){
+            if(nodos.estaVacio())
+                return nullptr;
+            
             return nodos.pop();
         }
 
@@ -38,6 +41,9 @@ class Camino{
          * @return La parte superior de la pila.
          */
         NodoBmas<T>* getNodoActual(){
+            if(nodos.estaVacio())
+                return nullptr;
+
             return nodos.peek();
         }
         
@@ -66,7 +72,7 @@ class Camino{
          * 
          * @return La parte superior de la pila.
          */
-        int getNodoActual(){
+        int getIndiceActual(){
             return indices.peek();
         }
 

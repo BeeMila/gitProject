@@ -23,7 +23,7 @@ class Resultado{
             return (-this->resultado - 1);
         }
 
-        bool datoEncotrado(){
+        bool datoEncontrado(){
             return (this->resultado >= 0);
         }
 

@@ -110,7 +110,7 @@ class ArbolBmas{
         * @return Un puntero a un objeto NodoBmas.
         */
         NodoBmas<T>* crearNodo(bool esHoja){
-            return new NodoBmas(orden, esHoja);
+            return new NodoBmas<T>(orden, esHoja);
         } 
 
         void getCamino(T dato, NodoBmas<T>* nodoActual, Camino<T> &camino){
@@ -124,7 +124,7 @@ class ArbolBmas{
 
             if(nodoActual->getEsHoja()){
 
-                if(resultado.datoEncotrado())
+                if(resultado.datoEncontrado())
                     camino.marcarDatos();
 
             }else{
@@ -139,7 +139,84 @@ class ArbolBmas{
                 return;
             }
 
+            // Hay overflow en el nodo actual
+            // En el array temporal, copio todas las claves existentes más la que voy a ingresar
+
+            NodoBmas<T>* nuevoHermano = this->crearNodo(true);
+            nodo->setSiguiente(nuevoHermano);
+
+            Vector<T>* buffer = crearBuffer(nodo->getDatos(), dato);
+
+            int posMedia{buffer->longitud()/2};
+            nodo->getDatos().setDatos(*(buffer->getSubVector(0,posMedia)));
+            nuevoHermano->getDatos().setDatos(*(buffer->getSubVector(posMedia, buffer->longitud())));
+            insertarEnPadre((*buffer)[posMedia], camino.siguienteNodo(), camino, nodo, nuevoHermano);
+
         }
+
+        void insertarEnPadre(T dato, NodoBmas<T> * padre, Camino<T>& camino, NodoBmas<T>* hermanoIz, NodoBmas<T>* hermanoDer){
+
+            if(padre == nullptr){ //overflow
+                this->crearRaiz(dato, hermanoIz, hermanoDer);
+                return;
+            }
+
+            if(!(alMaximo(padre))){
+                padre->insertarOrdenado(dato, hermanoDer);
+                return;
+            }
+
+            NodoBmas<T> *nuevoHermano = this->crearNodo(false);
+            Vector<T>* buffer = crearBuffer(padre->getDatos(), dato);
+            Resultado resultado(buffer->buscarOrdenado(dato));
+
+            int posMedia{buffer->longitud()/2};
+            T clavePadre{(*buffer)[posMedia]};
+            padre->getDatos().setDatos(*(buffer->getSubVector(0,posMedia)));
+            nuevoHermano->getDatos().setDatos(*(buffer->getSubVector(posMedia+1, buffer->longitud())));
+
+            Vector<NodoBmas<T>*> &hijosPadre = padre->getHijos();   
+            int posInsertar{resultado.getPosBusqueda()+1};
+            
+            Vector<NodoBmas<T>*> *parteIzquierda = hijosPadre.getSubVector(0,posInsertar);
+            Vector<NodoBmas<T>*> *parteDerecha = hijosPadre.getSubVector(posInsertar, hijosPadre.longitud());
+
+            Vector<NodoBmas<T>*> bufferHijos(hijosPadre.longitud()+1);
+            bufferHijos.unirVectores(*parteIzquierda);
+            bufferHijos.insertarFinal(hermanoDer);
+            bufferHijos.unirVectores(*parteDerecha);
+
+            //Reciclo variable
+            posMedia = bufferHijos.longitud()/2 + (bufferHijos.longitud() % 2 == 0 ? 0 : 1);
+
+            padre->getHijos().setDatos(*(bufferHijos.getSubVector(0,posMedia)));
+            nuevoHermano->getHijos().setDatos(*(bufferHijos.getSubVector(posMedia, bufferHijos.longitud())));
+
+            insertarEnPadre(clavePadre, camino.siguienteNodo(), camino, padre, nuevoHermano);
+
+        }
+
+        void crearRaiz(T dato, NodoBmas<T>* hermanoIz, NodoBmas<T>* hermanoDer){
+
+            this->raiz = crearNodo(false);
+            raiz->insertarOrdenado(dato);
+            raiz->getHijos().insertarFinal(hermanoIz);
+            raiz->getHijos().insertarFinal(hermanoDer);
+
+        }
+
+        void reemplazarRaiz(NodoBmas<T>* raiz){
+            this->raiz = raiz;
+        }
+
+        Vector<T>* crearBuffer(Vector<T> &datos, T dato){
+            Vector<T> *aux = new Vector<T>(datos.longitud()+1);
+            aux->unirVectores(datos);
+            aux->insertarOrdenado(dato);
+
+            return aux;
+        }
+
 
     public:
     

@@ -1,4 +1,4 @@
-#include "Vector/Vector.hpp"
+#include "../Vector/Vector.hpp"
 #include "ResultadoB+.hpp"
 
 #include <iostream>
@@ -11,6 +11,8 @@ class NodoBmas{
 
         Vector<T> datos;
         Vector<NodoBmas<T>*> hijos;
+        NodoBmas<T>* siguiente{nullptr};
+
         bool esHoja;
 
     public:
@@ -24,6 +26,14 @@ class NodoBmas{
         NodoBmas(int orden, bool esHoja) : datos(orden-1), hijos(orden), esHoja(esHoja){};
 
         ~NodoBmas(){}
+
+        NodoBmas<T>* getSiguiente(){
+            return this->siguiente;
+        }
+
+        void setSiguiente(NodoBmas<T>* sig){
+            this->siguiente = sig;
+        }
 
         /**
          * Retorna el valor de esHoja.
@@ -56,20 +66,20 @@ class NodoBmas{
          * Devuelve el número de elementos de la lista.
          */
         int cantidadDatos(){
-            this->datos.elementos();
+            return this->datos.longitud();
         }
 
         /**
          * Devuelve el número de hijos del nodo.
          */
         int cantidadHijos(){
-            this->hijos.elementos();
+            return this->hijos.longitud();
         }
 
         //Retorna una instancia de resultado, que almacena un indice 
         //util para poder encontrar el lugar en donde insertarlo
         Resultado buscadorNodo(T v){
-            return Resultado(datos.buscarOrdenado(v))
+            return Resultado(datos.buscarOrdenado(v));
         }
 
         Vector<T> &getDatos(){
@@ -81,15 +91,18 @@ class NodoBmas{
         }
 
         int insertarOrdenado(T dato){
-            Resultado resultado(this->buscadorNodo(dato));
-            
-            if(resultado.datoEncotrado()){
-                throw std::out_of_range("Elemento repetido");
+            return datos.insertarOrdenado(dato);
+        }
+
+        void insertarOrdenado(T dato, NodoBmas<T>* hijoActual){
+            int posInsertada{this->insertarOrdenado(dato)};
+
+            if(posInsertada < cantidadHijos()){
+                posInsertada++;
             }
 
-            datos.insertar(dato, resultado.getPosInsercion());
+            hijos.insertar(hijoActual, posInsertada);
 
-            return resultado.getPosInsercion();
         }
 
 };

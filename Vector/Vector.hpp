@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include "../ArbolB+/ResultadoB+.hpp"
 
 using std::cout; 
 using std::cin;
@@ -215,8 +216,8 @@ class Vector {
          * @param vect El vector que se agregará al vector actual.
          */
         void unirVectores(Vector<T> &vect){
-            for(int i = 0; i < vect.getElementos(); i++)
-                push_back(vect[i]);
+            for(int i = 0; i < vect.longitud(); i++)
+                insertarFinal(vect[i]);
         }
 
         /**
@@ -240,6 +241,34 @@ class Vector {
             }
             
             return (-i - 1);
+        }
+
+
+        int insertarOrdenado(T dato){
+            Resultado resultado(buscarOrdenado(dato));
+            
+            if(resultado.datoEncontrado()){
+                throw std::out_of_range("Elemento repetido");
+            }
+
+            this->insertar(dato, resultado.getPosInsercion());
+
+            return resultado.getPosInsercion();
+        }
+
+        void setDatos(Vector<T> &vector){
+            this->vaciar();
+            this->unirVectores(vector);
+        }
+
+        Vector<T>* getSubVector(int inicio, int fin){
+            Vector<T>* nuevo = new Vector<T>(fin-inicio);
+
+            for(int i = inicio; i < fin; i++){
+                nuevo->insertarFinal(arrayInterno[i]);
+            }
+
+            return nuevo;
         }
 
 };
