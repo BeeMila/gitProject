@@ -58,8 +58,9 @@ public:
 	 */
 	void mostrar(){
 
-    	Nodo<T> * tmp=this->ultimo;
+    	Nodo<T> * tmp = this->ultimo;
 			while (tmp !=nullptr){
+				//cout << "imprimir" <<endl;
 				cout << tmp->getValor()<<" ";
 				tmp = tmp->getNodo();
     	}
@@ -79,17 +80,19 @@ public:
 			return {};
 		}else if(primero == ultimo){
 			Nodo<T>  *aux_borrar = ultimo->getNodo();
+			//cout << "pop" << aux_borrar->getValor() <<endl;
 			T aux{aux_borrar->getValor()};
 			primero = ultimo=nullptr;
-			aux_borrar->~Nodo();
+			
 			longitud--;
 			return aux;
 
 		}else{
     		Nodo<T>  *aux_borrar=ultimo;
+			//cout << "pop" << aux_borrar->getValor() <<endl;
 			T aux{aux_borrar->getValor()}; 
 			ultimo=aux_borrar->getNodo();
-			aux_borrar->~Nodo();
+	
 			longitud--;
 			return aux;
         }
@@ -108,7 +111,8 @@ public:
 			return {};
 		}else{
 
-			T aux{ultimo->getNodo()->getValor()};
+			//cout << "pop" << ultimo->getValor() <<endl;
+			T aux{ultimo->getValor()};
 			return aux;
 
 		}

@@ -71,10 +71,13 @@ template <typename T>
                     cout<< "\nNada que borrar. Lista vacia"<<endl;
                     return {};
                 }else if(primero == ultimo){
+                    //cout << "poll 1" << primero->getValor() <<endl;
                     T retorno {primero->getValor()};
                     primero = ultimo = nullptr;
                     return retorno;
                 }else{
+
+                    //cout << "poll 2" << primero->getValor() <<endl;
                     T retorno {primero->getValor()};
                     Nodo<T> *n = primero->getNodo();
                     //primero->~Nodo();
@@ -95,6 +98,8 @@ template <typename T>
                     cout<< "\nNada que borrar. Lista vacia"<<endl;
                     return {};
                 }else{
+
+                    //cout << "peek" << primero->getValor() <<endl;
                     T retorno {primero->getValor()};
                     return retorno;
                 }
@@ -113,6 +118,7 @@ template <typename T>
 
                 cout<<"\n";
                 while(n != nullptr){
+                    //cout << "imprimir" <<endl;
                     cout<< n->getValor() << " ";
                     n = n->getNodo();
                 }
