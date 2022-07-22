@@ -105,4 +105,7 @@ class NodoBmas{
 
         }
 
+        bool tieneHijoIzquierdo(int pos) {
+            return (pos > 0);
+        }
 };
