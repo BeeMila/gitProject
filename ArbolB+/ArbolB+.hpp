@@ -217,8 +217,19 @@ class ArbolBmas{
             return aux;
         }
 
-        void borrarEnHoja(){
+        void borrarEnHoja(T dato, NodoBmas<T>* actual, Camino<T> &camino){
             
+        }
+
+        bool borrarClave(T ingr, Camino<T> &camino){
+
+            // Si la clave no existe, no hago nada
+            if(!camino.getEncontreDato()){
+                return false;
+            }
+
+            
+
         }
 
 

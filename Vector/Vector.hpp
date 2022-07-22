@@ -132,6 +132,15 @@ class Vector {
             elementos++;
         }
 
+        void borrar(int indice){
+
+            for(int i = indice; i >= elementos-2; i++){
+                arrayInterno[i] = arrayInterno[i+1]; 
+            }
+
+            eliminarFinal();
+        }
+
 
         /**
          * Elimina el último elemento de la lista.
@@ -252,6 +261,16 @@ class Vector {
             }
 
             this->insertar(dato, resultado.getPosInsercion());
+
+            return resultado.getPosInsercion();
+        }
+
+        int borrarOrdenado(T dato){
+            Resultado resultado(buscarOrdenado(dato));
+
+            if(resultado.datoEncontrado()){
+                borrar(resultado.getPosInsercion());   
+            }
 
             return resultado.getPosInsercion();
         }
