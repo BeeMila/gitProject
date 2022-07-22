@@ -250,7 +250,9 @@ class ArbolBmas{
                 return;
 		    }
 
-            
+            hermIzq->getDatos().setDatos(bufferDatos);
+            hermIzq->getDatos().setDatos(hermDer->getSiguiente());
+            borrarEnPadre(clavePadreAct, padre, camino);
 
         }
 
