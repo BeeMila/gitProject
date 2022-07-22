@@ -105,6 +105,11 @@ class NodoBmas{
 
         }
 
+        bool tieneHermanoDer (int posHijo) {
+		    return (posHijo < (hijos.longitud() - 1));
+	    }
+
+        
         bool tieneHermanoIzq (int posHijo) {
 		    return (posHijo > 0);
 	    }
@@ -112,5 +117,50 @@ class NodoBmas{
         NodoBmas<T> *getHermanoIzq (int posHijo) {
             return this->getHijos()[posHijo + (tieneHermanoIzq(posHijo) ? -1 : 1)];
 	    }
+<<<<<<< HEAD
+
+        NodoBmas<T> *getHermanoDer (int posHijo) {
+		    return this->getHijos()[posHijo + (tieneHermanoDer(posHijo) ? 1 : -1)];
+	    }
+
+        bool tieneHijoIzquierdo(int pos) {
+            return (pos > 0);
+        }
+
+        int getPosSepar (int posHijo, NodoBmas<T> *hermano) {
+
+            if (!tieneHermanoIzq(posHijo))
+                return 0;
+            
+            if (!tieneHermanoDer(posHijo))
+                return (hijos.longitud() - 2);
+            
+            if (getHermanoIzq(posHijo) == hermano)
+                return (posHijo - 1);
+            
+            if (getHermanoDer(posHijo) == hermano)
+                return posHijo;
+            
+            throw std::out_of_range("No se pudo determinar el índice a retornar"); 
+            
+	    }
+
+        void ordenarHijos (Vector<NodoBmas<T>*> &lista) {
+            Vector<NodoBmas<T>*> salida(lista.longitud());
+            
+            for(int i = 0; i < hijos.longitud(); i++){
+
+                if(lista.contiene(hijos[i])){
+                    salida.insertarFinal(hijos[i]);
+                }
+
+            }
+
+            lista.setDatos(salida);
+
+	    }
+
+=======
+>>>>>>> fe545fc9537a83f222476157f1ec548c6f642228
 };
     

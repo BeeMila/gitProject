@@ -219,9 +219,51 @@ class ArbolBmas{
 
         void borrarEnHoja(T dato, NodoBmas<T>* actual, Camino<T> &camino){
             
+            actual->getDatos().borrar(camino.siguienteIndice());
 
+            if(!(underflow(actual)) || (raiz->esHoja())){
+                return;
+            }
+
+            int posHijo{camino.siguienteIndice()};
+            NodoBmas<T>* padre = camino.siguienteNodo();
+            NodoBmas<T>* hermano = getHermano(padre, posHijo);
+
+            int posClavePadre = padre->getPosSepar(posHijo, hermano);
+            T clavePadreAct = padre->getDatos()[posClavePadre];
+
+            Vector<NodoBmas<T>*> listaHijos(2);
+            listaHijos.insertarFinal(actual);
+            listaHijos.insertarFinal(hermano);
+
+            padre->ordenarHijos(listaHijos);
+            NodoBmas<T>* hermIzq = listaHijos[0];
+            NodoBmas<T>* hermDer = listaHijos[1];
+
+            Vector<T> bufferDatos;
+            bufferDatos.insertarOrdenados(hermIzq->getDatos());
+            bufferDatos.insertarOrdenados(hermDer->getDatos());
+
+            if (!alMinimo(hermIzq) && !alMinimo(hermDer)) {
+                T clavePadreNue = redistribuirEnHojas(hermIzq, hermDer, bufferDatos);
+                padre.setDato(posClavePadre, clavePadreNue);
+                return;
+		    }
+
+            hermIzq->getDatos().setDatos(bufferDatos);
+            hermIzq->getDatos().setDatos(hermDer->getSiguiente());
+            borrarEnPadre(clavePadreAct, padre, camino);
 
         }
+
+        T redistribuirEnHojas (NodoBmas<T>* hermanoIzq, NodoBmas<T>* hermanoDer, Vector<T> &bufferDatos) {
+            int posMedia = bufferDatos.longitud()/2;
+            
+            hermanoIzq->getDatos().setDatos(*(bufferDatos.getSubVector(0, posMedia)));
+            hermanoDer->getDatos().setDatos(*(bufferDatos.getSubVector(posMedia, bufferDatos.longitud())));
+            
+            return bufferDatos[posMedia];
+	    }
 
         bool borrarClave(T ingr, Camino<T> &camino){
 

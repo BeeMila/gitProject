@@ -134,8 +134,8 @@ class Vector {
 
         void borrar(int indice){
 
-            for(int i = indice + 1; i < elementos; i++){
-                arrayInterno[i - 1] = arrayInterno[i]; 
+            for(int i = indice; i >= elementos-2; i++){
+                arrayInterno[i] = arrayInterno[i+1]; 
             }
 
             eliminarFinal();
@@ -266,7 +266,7 @@ class Vector {
         }
 
         int borrarOrdenado(T dato){
-            Resultado resultado(buscarOrdenado(dato));
+            Resultado resultado(buscarOrdenado(dato));  
 
             if(resultado.datoEncontrado()){
                 borrar(resultado.getPosBusqueda());   
@@ -290,5 +290,22 @@ class Vector {
             return nuevo;
         }
 
+        bool contiene(T dato){
+
+            for(int i = 0; i < elementos; i++){
+                if(arrayInterno[i] == dato){
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        void insertarOrdenados(Vector<T> &vector){
+
+            for(int i=0; i < vector.longitud(); i++){
+                insertarOrdenado(vector[i]);
+            }
+        }
 };
 
