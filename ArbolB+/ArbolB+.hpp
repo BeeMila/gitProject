@@ -221,17 +221,6 @@ class ArbolBmas{
             
         }
 
-        bool borrarClave(T ingr, Camino<T> &camino){
-
-            // Si la clave no existe, no hago nada
-            if(!camino.getEncontreDato()){
-                return false;
-            }
-
-            
-
-        }
-
 
     public:
     
@@ -262,6 +251,20 @@ class ArbolBmas{
         cantidadDatos++;
         return true;
 
+    }
+
+    bool borrarClave(T ingr){
+        Camino<T> camino;
+        this->getCamino(ingresar, raiz, camino);
+        
+        // Si la clave no existe, no hago nada
+        if(!camino.getEncontreDato()){
+            return false;
+        }
+
+        this -> borrarEnHoja(ingr, camino.siguienteNodo(), camino);
+        --(this -> cantidadDatos);
+        return true;
     }
 
     void imprimir(){
