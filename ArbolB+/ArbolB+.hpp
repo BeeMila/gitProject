@@ -217,6 +217,10 @@ class ArbolBmas{
             return aux;
         }
 
+        void borrarEnHoja(){
+            
+        }
+
 
     public:
     
@@ -228,6 +232,10 @@ class ArbolBmas{
     ArbolBmas(int orden) : orden{orden}, raiz{crearNodo(true)}, primeraHoja{raiz}{}
 
     ~ArbolBmas(){}
+
+    int getCantidadDatos(){
+        return this->cantidadDatos;
+    }
 
     
     bool insertarEnOrden(T ingresar){
@@ -245,6 +253,20 @@ class ArbolBmas{
 
     }
 
-    
+    void imprimir(){
+
+        NodoBmas<T>* it = primeraHoja;
+
+        while(it != nullptr){
+
+            cout << " [ ";
+            it->getDatos().imprimir();
+            cout << " ] ";
+
+            it = it->getSiguiente();
+        }
+
+
+    }    
 
 };

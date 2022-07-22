@@ -19,7 +19,6 @@ public:
 	}
 
 	~Pila(){
-		primero->~Nodo();
 	}
 
 	/**

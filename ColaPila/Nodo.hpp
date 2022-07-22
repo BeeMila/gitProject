@@ -21,7 +21,6 @@ template <typename T>
             Nodo() {}
 
             ~Nodo(){
-                delete &nodo;
             }    
 
             /**
