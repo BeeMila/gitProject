@@ -443,7 +443,7 @@ class ArbolBmas{
 
 	
 					
-                    for (int i = 0; i < aux->getHijos().longitud() + 1; ++i) {
+                    for (int i = 0; i < aux->getHijos().longitud(); ++i) {
                         cola.pushLast(aux->getHijos()[i]);
                     }
 					

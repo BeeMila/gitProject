@@ -14,7 +14,7 @@ void Menu::add_option(MenuOption option) {
     options.push_back(option);
 }
 
-void Menu::remove_option(int index) {
+void Menu::remove_option(long long unsigned int index) {
     if (index < 0 || index > options.size()) {
         return;
     }
@@ -25,7 +25,7 @@ void Menu::remove_option(int index) {
 }
 
 void Menu::display() {
-    int selected = 1;
+    long long unsigned int selected = 1;
 
     if (options.empty()) {
         return;
@@ -40,7 +40,7 @@ void Menu::display() {
     running = true;
 
     while (running) {
-        int position = 1;
+        long long unsigned int position = 1;
         
         system("cls");
 
