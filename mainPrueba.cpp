@@ -15,6 +15,8 @@ int main(){
     }
 
     arbol.imprimir();
+    arbol.borrarClave(10);
+    arbol.borrarClave(100);
     arbol.imprimirNiveles();
 
 

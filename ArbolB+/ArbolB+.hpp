@@ -222,7 +222,7 @@ class ArbolBmas{
             
             actual->getDatos().borrar(camino.siguienteIndice());
 
-            if(!(underflow(actual)) || (raiz->esHoja())){
+            if(!(underflow(actual)) || (raiz->getEsHoja())){
                 return;
             }
 
@@ -247,12 +247,12 @@ class ArbolBmas{
 
             if (!alMinimo(hermIzq) && !alMinimo(hermDer)) {
                 T clavePadreNue = redistribuirEnHojas(hermIzq, hermDer, bufferDatos);
-                padre.setDato(posClavePadre, clavePadreNue);
+                padre->getDatos()[posClavePadre] = clavePadreNue;
                 return;
 		    }
 
             hermIzq->getDatos().setDatos(bufferDatos);
-            hermIzq->getDatos().setDatos(hermDer->getSiguiente());
+            hermIzq->setSiguiente(hermDer->getSiguiente());
             borrarEnPadre(clavePadreAct, padre, camino);
 
         }
@@ -283,9 +283,9 @@ class ArbolBmas{
             return padre->getHermanoIzq(posHijo);
         }
 
-        void borrarEnPadre(T ingr, NodoB<T>* actual, Camino<T> camino) {
-            ResulBusqueda borrado(actual -> getDatos().borrarOrdenado(ingr));
-            actual -> getHijos() -> borrar(borrado.getPosBusqueda() + 1);
+        void borrarEnPadre(T ingr, NodoBmas<T>* actual, Camino<T> camino) {
+            Resultado borrado(actual -> getDatos().borrarOrdenado(ingr));
+            actual -> getHijos().borrar(borrado.getPosBusqueda() + 1);
             
             // Borré la clave. Si la hoja no está en underflow, no hago nada más
             if (!underflow(actual))
@@ -295,18 +295,18 @@ class ArbolBmas{
             // Si ahora tiene 1 solo hijo, ese hijo pasa a ser la nueva raíz
             if (camino.fin()) {
                 if (this -> raiz -> cantidadHijos() == 1)
-                    this -> borrarRaiz(this -> raiz -> getHijos[0]);
+                    this -> reemplazarRaiz(this -> raiz -> getHijos()[0]);
                 
                 return;
             }
             
             // Sino, según la política, selecciono el hermano a usar
             int posHijo = camino.siguienteIndice();
-            NodoB<T>* padre = camino.siguienteNodo();
-            NodoB<T>* hermano = this -> getHermano (padre, posHijo);
+            NodoBmas<T>* padre = camino.siguienteNodo();
+            NodoBmas<T>* hermano = this -> getHermano (padre, posHijo);
             
             int posClavePadre = actual -> getPosSepar(posHijo, hermano);
-            T clavePadreNue, clavePadreAct = padre -> getDatos[posClavePadre];
+            T clavePadreNue, clavePadreAct = padre -> getDatos()[posClavePadre];
             
             // Entre los nodos actual y hermano, determino cuál es el hijo
             // izquierdo y cuál es el derecho
@@ -345,12 +345,12 @@ class ArbolBmas{
             this -> borrarEnPadre (clavePadreAct, padre, camino);
         }
 
-        T redistribuir (NodoB<T>* hermanoIzq, NodoB<T>* hermanoDer, Vector<T> &bufferDatos, Vector<NodoB<T>*> &bufferHijos) {
-            T salida = this -> redistribuir(hermanoIzq, hermanoDer, bufferDatos);
+        T redistribuir (NodoBmas<T>* hermanoIzq, NodoBmas<T>* hermanoDer, Vector<T> &bufferDatos, Vector<NodoBmas<T>*> &bufferHijos) {
+            T salida = this -> redistribuirEnHojas(hermanoIzq, hermanoDer, bufferDatos);
             int posMedia = bufferHijos.longitud() / 2 + ((bufferHijos.longitud() % 2 == 1) ? 1 : 0);
             
-            hermanoIzq -> getHijos().setDatos(*(bufferHijos.getSubVector(0, posMedia));
-            hermanoDer -> getHijos().setDatos(*(bufferHijos.getSubVector(posMedia, bufferHijos.longitud()));
+            hermanoIzq -> getHijos().setDatos(*(bufferHijos.getSubVector(0, posMedia)));
+            hermanoDer -> getHijos().setDatos(*(bufferHijos.getSubVector(posMedia, bufferHijos.longitud())));
             
             return salida;
         }
@@ -396,7 +396,7 @@ class ArbolBmas{
 
     bool borrarClave(T ingr){
         Camino<T> camino;
-        this->getCamino(ingresar, raiz, camino);
+        this->getCamino(ingr, raiz, camino);
         
         // Si la clave no existe, no hago nada
         if(!camino.getEncontreDato()){
