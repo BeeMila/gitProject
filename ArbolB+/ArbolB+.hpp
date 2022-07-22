@@ -1,6 +1,7 @@
 #include <iostream>
 #include "NodoB+.hpp"
 #include "CaminoB+.hpp"
+#include "../ColaPila/Cola.hpp"
 using namespace std;
 #pragma once
    
@@ -375,6 +376,13 @@ class ArbolBmas{
 
     }
 
+    bool buscar(T ingresar){
+        Camino<T> camino;
+        this->getCamino(ingresar, raiz, camino);
+
+        return camino.getEncontreDato();
+    }
+
     bool borrarClave(T ingr){
         Camino<T> camino;
         this->getCamino(ingresar, raiz, camino);
@@ -403,6 +411,43 @@ class ArbolBmas{
         }
 
 
-    }    
+    }  
+
+    void imprimirNiveles(){
+
+			Cola<NodoBmas<T>*> cola;
+			cola.pushLast(this->raiz);
+			cola.pushLast(nullptr);
+
+			while (!(cola.estaVacia())) {
+				NodoBmas<T>* aux{ cola.poll() };
+
+				if (aux != nullptr) {
+
+					cout << " [ ";
+					for (int i = 0; i < aux->getDatos().longitud(); ++i) {
+						cout << "|" << aux->getDatos()[i] << "|" << " ";
+					}
+					cout << " ] ";
+
+	
+					
+                    for (int i = 0; i < aux->getHijos().longitud() + 1; ++i) {
+                        cola.pushLast(aux->getHijos()[i]);
+                    }
+					
+
+				}
+
+				else if (!(cola.estaVacia())) {
+					cola.pushLast(nullptr);
+					cout << endl;
+				}
+
+
+			}
+
+
+    }  
 
 };

@@ -10,11 +10,12 @@ int main(){
     arbol.insertarEnOrden(2);
     arbol.insertarEnOrden(1);
     
-    for(int i = 4; i < 100; i++){
+    for(int i = 4; i < 40; i++){
         arbol.insertarEnOrden(i);
     }
 
     arbol.imprimir();
+    arbol.imprimirNiveles();
 
 
     return 0;
