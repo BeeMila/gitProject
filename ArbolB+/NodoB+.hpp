@@ -117,7 +117,6 @@ class NodoBmas{
         NodoBmas<T> *getHermanoIzq (int posHijo) {
             return this->getHijos()[posHijo + (tieneHermanoIzq(posHijo) ? -1 : 1)];
 	    }
-<<<<<<< HEAD
 
         NodoBmas<T> *getHermanoDer (int posHijo) {
 		    return this->getHijos()[posHijo + (tieneHermanoDer(posHijo) ? 1 : -1)];
@@ -160,7 +159,5 @@ class NodoBmas{
 
 	    }
 
-=======
->>>>>>> fe545fc9537a83f222476157f1ec548c6f642228
 };
     
