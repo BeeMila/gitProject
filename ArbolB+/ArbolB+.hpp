@@ -310,29 +310,39 @@ class ArbolBmas{
             
             // Entre los nodos actual y hermano, determino cuál es el hijo
             // izquierdo y cuál es el derecho
-            ArrayLongLim<NodoB<T>> listaHijos = new ArrayLongLim<NodoB<T>>(Arrays.asList(actual, hermano), false);
-            padre.ordenarHijos(listaHijos);
-            NodoB<T> hermIzq = listaHijos.get(0), hermDer = listaHijos.get(1);
+            Vector<NodoBmas<T>*> listaHijos(2);
+            listaHijos.insertarFinal(actual);
+            listaHijos.insertarFinal(hermano);
+
+            padre->ordenarHijos(listaHijos);
+            NodoBmas<T>* hermIzq = listaHijos[0];
+            NodoBmas<T>* hermDer = listaHijos[1];
             
-            ArrayLongLimOrdenado<T> bufferDatos = this.crearBufferOrdenado(hermIzq.getDatos(), hermDer.getDatos(), this.crearBufferOrdenado(Arrays.asList(clavePadreAct)));
-            ArrayLongLim<NodoB<T>> bufferHijos = this.crearBuffer(hermIzq.getHijos(), hermDer.getHijos());
+            Vector<T> bufferDatos;
+            bufferDatos.insertarOrdenados(hermIzq->getDatos());
+            bufferDatos.insertarOrdenados(hermDer->getDatos());
+            bufferDatos.insertarOrdenado(clavePadreAct);
+            
+            Vector<NodoBmas<T>*> bufferHijos;
+            bufferHijos.unirVectores(hermIzq->getHijos());
+            bufferHijos.unirVectores(hermDer->getHijos());
             
             // Si el hermano derecho no está al mínimo, entonces redistribuyo
-            if (!this.alMinimo(hermDer)) {
-                bufferHijos = this.crearBuffer(hermIzq.getHijos(), hermDer.getHijos()); // Borrar?
+            if (!alMinimo(hermDer)) {
+                //bufferHijos = this.crearBuffer(hermIzq.getHijos(), hermDer.getHijos()); // Borrar?
                 
-                clavePadreNue = this.redistribuir (hermIzq, hermDer, bufferDatos, bufferHijos);
-                padre.setDato(posClavePadre, clavePadreNue);
+                clavePadreNue = this -> redistribuir(hermIzq, hermDer, bufferDatos, bufferHijos);
+                padre -> getDatos()[posClavePadre] = clavePadreNue;
 
                 return;
             }
             
             // Está al mínimo, entonces fusiono en el hermano izquierdo y borro el derecho
-            hermIzq.setDatos(bufferDatos);
-            hermIzq.setHijos(bufferHijos);
+            hermIzq -> getDatos().setDatos(bufferDatos);
+            hermIzq -> getHijos().setDatos(bufferHijos);
             
             // Sigo recursivamente con el siguiente
-            this.borrarEnPadre (clavePadreAct, padre, camino);
+            this -> borrarEnPadre (clavePadreAct, padre, camino);
         }
 
     public:
