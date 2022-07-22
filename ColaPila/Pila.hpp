@@ -8,7 +8,6 @@ class Pila{
 
 private:
 	Nodo<T>* primero= nullptr;
-	Nodo<T>* ultimo= nullptr;
 	int longitud{0};
 
 public:
@@ -21,7 +20,6 @@ public:
 
 	~Pila(){
 		primero->~Nodo();
-		ultimo->~Nodo();
 	}
 
 	/**
@@ -43,11 +41,12 @@ public:
     	Nodo<T> *nuevo = new Nodo<T>(v);
 
     	if (primero == nullptr) {
-        	primero = ultimo = nuevo;
+        	primero = nuevo;
+
 			
     	}else {    	
-			nuevo->setNodo(ultimo);
-			ultimo=nuevo;
+			nuevo->setNodo(primero);
+			primero = nuevo;
 		}
 
 		longitud++;
@@ -58,9 +57,8 @@ public:
 	 */
 	void mostrar(){
 
-    	Nodo<T> * tmp = this->ultimo;
+    	Nodo<T> * tmp = this->primero;
 			while (tmp !=nullptr){
-				//cout << "imprimir" <<endl;
 				cout << tmp->getValor()<<" ";
 				tmp = tmp->getNodo();
     	}
@@ -78,21 +76,10 @@ public:
 		if(primero == nullptr){
 			cout<<"\n Pila Vacia"<<endl;
 			return {};
-		}else if(primero == ultimo){
-			Nodo<T>  *aux_borrar = ultimo->getNodo();
-			//cout << "pop" << aux_borrar->getValor() <<endl;
-			T aux{aux_borrar->getValor()};
-			primero = ultimo=nullptr;
-			
-			longitud--;
-			return aux;
-
 		}else{
-    		Nodo<T>  *aux_borrar=ultimo;
-			//cout << "pop" << aux_borrar->getValor() <<endl;
+    		Nodo<T> *aux_borrar=primero;
 			T aux{aux_borrar->getValor()}; 
-			ultimo=aux_borrar->getNodo();
-	
+			primero=aux_borrar->getNodo();
 			longitud--;
 			return aux;
         }
@@ -111,9 +98,7 @@ public:
 			return {};
 		}else{
 
-			//cout << "pop" << ultimo->getValor() <<endl;
-			T aux{ultimo->getValor()};
-			return aux;
+			return primero->getValor();
 
 		}
 
