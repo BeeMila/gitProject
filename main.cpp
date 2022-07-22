@@ -33,7 +33,7 @@ void ingresarInternos(ArbolBmas<int> &arbol){
 			i = 10;
 		}else{
 			arbol.insertarEnOrden(num);
-            cout << " ~~~ Valor insertado ~~" <<endl;
+            cout << "\n ~~~ Valor insertado ~~" <<endl;
 		}
 	}
 
@@ -44,12 +44,18 @@ int main(int argc, char **argv) {
     
     
     Menu menu("\n \t Arbol B+ \t \n");
-    ArbolBmas<int> arbol(4);
+    ArbolBmas<int> arbol(5);
+    arbol.insertarEnOrden(1);
+    arbol.insertarEnOrden(7);
+    arbol.insertarEnOrden(11);
+    arbol.insertarEnOrden(17);
+    arbol.insertarEnOrden(13);
+    arbol.insertarEnOrden(12);
+
 
     menu.add_option(MenuOption("\t ~~ 1. Agregar datos", [&](MenuOptionArguments args) {
        
         ingresarInternos(arbol);
-        system("pause");
 
     }));
 
@@ -91,7 +97,6 @@ int main(int argc, char **argv) {
         
         menuInterno.add_option(MenuOption("\t ~~ 2. Mostrar por niveles", [&](MenuOptionArguments args) {
             arbol.imprimirNiveles();
-            system("pause");
         }));
 
         menuInterno.add_option(MenuOption("\n \t ~~ 3. Regresar a menu principal", [&](MenuOptionArguments args) {
@@ -103,20 +108,13 @@ int main(int argc, char **argv) {
     }));
 
     //!Submenus
-    menu.add_option(MenuOption("\t ~~ 4. Encriptar", [&](MenuOptionArguments args) {
-        system("CLS");
-        Menu menuInterno("Submenu");
-
+    menu.add_option(MenuOption("\t ~~ 4. Suma primos", [&](MenuOptionArguments args) {
         
-        menuInterno.add_option(MenuOption("1...", [&](MenuOptionArguments args) {
-        }));
-        
+        cout << "\n \t ~~ La suma de los primos resulta en: " <<endl;
+        arbol.imprimirNiveles();
+        cout <<endl;
+        arbol.sumaPrimos();
 
-        menuInterno.add_option(MenuOption("\nRegresar a menu principal", [&](MenuOptionArguments args) {
-            menuInterno.stop();
-        }, false));
-
-        menuInterno.display();
     }));
 
     //!Funcion salida del menu

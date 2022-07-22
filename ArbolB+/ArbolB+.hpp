@@ -2,6 +2,7 @@
 #include "NodoB+.hpp"
 #include "CaminoB+.hpp"
 #include "../ColaPila/Cola.hpp"
+#include <cmath>
 using namespace std;
 #pragma once
    
@@ -354,6 +355,18 @@ class ArbolBmas{
             
             return salida;
         }
+
+        bool esPrimo(int N){
+            bool a{true};
+            
+            for (int i =2; i <= ceil(sqrt(N)); i++){
+                if(N%i==0){
+                    a = false;
+                    break;
+                } 
+            }
+            return a;
+        }
 		
 
     public:
@@ -370,7 +383,6 @@ class ArbolBmas{
     int getCantidadDatos(){
         return this->cantidadDatos;
     }
-
     
     bool insertarEnOrden(T ingresar){
 
@@ -457,8 +469,33 @@ class ArbolBmas{
 
 
 			}
-
-
     }  
 
+    void sumaPrimos(){
+     
+            NodoBmas<T>* it = primeraHoja;
+            T suma{0};
+            int cont{0};
+
+            while(it != nullptr){
+                
+            
+                for(int i = 0; i < it->getDatos().longitud(); i++){
+                    T primo(it->getDatos()[i]);
+                    if(esPrimo(primo)){
+                        cont++;
+                        suma += primo;
+                    }
+                    
+                }
+
+                it = it->getSiguiente();
+            }
+
+            cout << "\n \t" << suma <<endl;  
+            cout << "Se encontraron " << cont << " numero primos" <<endl;        
+
+    } 
+
+   
 };
