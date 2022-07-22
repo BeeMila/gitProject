@@ -112,7 +112,5 @@ class NodoBmas{
         NodoBmas<T> *getHermanoIzq (int posHijo) {
             return this->getHijos()[posHijo + (tieneHermanoIzq(posHijo) ? -1 : 1)];
 	    }
-
-  
 };
     
