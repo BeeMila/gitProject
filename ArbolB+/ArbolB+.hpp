@@ -345,6 +345,17 @@ class ArbolBmas{
             this -> borrarEnPadre (clavePadreAct, padre, camino);
         }
 
+        T redistribuir (NodoB<T>* hermanoIzq, NodoB<T>* hermanoDer, Vector<T> &bufferDatos, Vector<NodoB<T>*> &bufferHijos) {
+            T salida = this -> redistribuir(hermanoIzq, hermanoDer, bufferDatos);
+            int posMedia = bufferHijos.longitud() / 2 + ((bufferHijos.longitud() % 2 == 1) ? 1 : 0);
+            
+            hermanoIzq -> getHijos().setDatos(*(bufferHijos.getSubVector(0, posMedia));
+            hermanoDer -> getHijos().setDatos(*(bufferHijos.getSubVector(posMedia, bufferHijos.longitud()));
+            
+            return salida;
+        }
+		
+
     public:
     
     /**
