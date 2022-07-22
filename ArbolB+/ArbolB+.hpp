@@ -219,6 +219,8 @@ class ArbolBmas{
 
         void borrarEnHoja(T dato, NodoBmas<T>* actual, Camino<T> &camino){
             
+            
+
         }
 
         bool borrarClave(T ingr, Camino<T> &camino){
@@ -228,8 +230,14 @@ class ArbolBmas{
                 return false;
             }
 
-            
+            this.borrarEnHoja(ingr, camino.siguienteNodo(), camino);
+			--this.numDatos;
+			return true;
 
+        }
+
+        NodoBmas<T>* getHermano(NodoBmas<T>* padre, int posHijo){
+            return padre->getHermanoIzq(posHijo);
         }
 
 
