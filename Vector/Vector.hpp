@@ -269,10 +269,10 @@ class Vector {
             Resultado resultado(buscarOrdenado(dato));
 
             if(resultado.datoEncontrado()){
-                borrar(resultado.getPosInsercion());   
+                borrar(resultado.getPosBusqueda());   
             }
 
-            return resultado.getPosInsercion();
+            return resultado.getPosBusqueda();
         }
 
         void setDatos(Vector<T> &vector){
