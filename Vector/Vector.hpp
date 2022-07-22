@@ -134,8 +134,8 @@ class Vector {
 
         void borrar(int indice){
 
-            for(int i = indice; i >= elementos-2; i++){
-                arrayInterno[i] = arrayInterno[i+1]; 
+            for(int i = indice + 1; i < elementos; i++){
+                arrayInterno[i - 1] = arrayInterno[i]; 
             }
 
             eliminarFinal();
