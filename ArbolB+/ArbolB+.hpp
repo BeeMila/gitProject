@@ -314,6 +314,13 @@ class ArbolBmas{
 
     }
 
+    bool buscar(T ingresar){
+        Camino<T> camino;
+        this->getCamino(ingresar, raiz, camino);
+
+        return camino.getEncontreDato();
+    }
+
     bool borrarClave(T ingr){
         Camino<T> camino;
         this->getCamino(ingresar, raiz, camino);
